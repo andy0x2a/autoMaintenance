@@ -1,9 +1,6 @@
 package com.andyn.service;
 
-import com.andyn.model.Maintenance;
-import com.andyn.model.MaintenanceStatus;
-import com.andyn.model.MaintenanceType;
-import com.andyn.model.VehicleType;
+import com.andyn.model.*;
 import com.andyn.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,23 +32,28 @@ public class InitializationService {
     private MaintenanceTypeRepository maintenanceTypeRepository;
 
     public void setupData() {
-        deleteAllData();
+//        deleteAllData();
         Dictionary<String, VehicleType> vehicleTypes = createVehicleTypes();
         Dictionary<String, MaintenanceType> maintenanceTypes = createMaintenanceStatusesAndTypes(vehicleTypes);
         createMaintenance(maintenanceTypes);
-        createVehicles();
+        createMaintenanceStatus();
+        createVehicles(vehicleTypes);
 
     }
 
-    private void createVehicles() {
-
+    private void createVehicles(Dictionary<String, VehicleType> vehicleTypes) {
+        Vehicle  car = new Vehicle();
+        car.setMake("Honda");
+        car.setModel("Civic");
+        car.setVehicleType(vehicleTypes.get("E"));
+        vehicleRepository.save(car);
     }
 
     private void createMaintenance(Dictionary<String, MaintenanceType> maintenanceTypes) {
 
         Maintenance maintenance = new Maintenance();
         maintenance.setType(maintenanceTypes.get("O"));
-        maintenance.setS
+        maintenanceRepository.save(maintenance);
 
     }
 
@@ -73,6 +75,9 @@ public class InitializationService {
         );
 
         Iterable<MaintenanceStatus> savedStatusList = maintenanceStatusRepository.save(listOfStatuses);
+
+
+        return statuses;
 
     }
 

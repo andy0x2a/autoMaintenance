@@ -64,10 +64,13 @@
           <element id="library" level="project" name="Maven: org.slf4j:jcl-over-slf4j:1.7.13" />
           <element id="library" level="project" name="Maven: org.springframework:spring-aspects:4.2.3.RELEASE" />
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.37" />
+          <element id="library" level="project" name="Maven: org.apache.derby:derby:10.12.1.1" />
+          <element id="library" level="project" name="Maven: hsqldb:hsqldb:1.8.0.10" />
+          <element id="library" level="project" name="Maven: com.h2database:h2:1.4.187" />
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/target/autoMaintenanceTracker/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="C:\Users\user\code\autoMaintenance\target/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="autoMaintenance/web/Web" />
     </root>
