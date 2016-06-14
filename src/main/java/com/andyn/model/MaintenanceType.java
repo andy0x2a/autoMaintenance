@@ -16,7 +16,7 @@ public class MaintenanceType {
     private String name;
 
 
-    @ManyToMany
+    @ManyToMany( cascade = CascadeType.ALL)
     @JoinTable(
             name="maintenance_allowed_types",
             joinColumns=@JoinColumn(name="mtype_id", referencedColumnName="id"),

@@ -5,10 +5,6 @@ import com.andyn.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-import java.util.ArrayList;
-import java.util.List;
-
 @Service
 public class VehicleServiceImpl implements VehicleService {
 
@@ -36,24 +32,40 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public Vehicle saveVehicle(Vehicle vehicle) {
-
-        validateVehicleAndMaintenanve(vehicle);
+        validateVehicleAndMaintenance(vehicle);
         return vehicleRepository.save(vehicle);
 
     }
 
+    @Override
+    public Vehicle saveVehicle(Vehicle vehicle, int vehicleId) {
+
+        validateVehicleAndId(vehicle,vehicleId);
+        validateVehicleAndMaintenance(vehicle);
+        return vehicleRepository.save(vehicle);
+
+    }
+
+    private void validateVehicleAndId(Vehicle vehicle, int vehicleId) {
+
+        //TODO, add better validation
+        if(vehicle.getId() != vehicleId) {
+            throw new IllegalStateException("Vehicle Id incorrect");
+        }
+    }
+
     /**
-     * Throws InvalidStateException if any of the maintenace are not applicable to the vehicle
+     * Throws IllegalStateException if any of the maintenace are not applicable to the vehicle
      *
      * @param vehicle
      */
-    private void validateVehicleAndMaintenanve(Vehicle vehicle) throws IllegalStateException {
+    private void validateVehicleAndMaintenance(Vehicle vehicle) throws IllegalStateException {
         //TODO, look into inverting this relationship.
 
         for (Maintenance maintenance : vehicle.getMaintenanceList()) {
             MaintenanceType vehicleMaintenanceType = maintenanceTypeRepository.findOne(maintenance.getType().getID());
             if (vehicleMaintenanceType != null) {
-                if (!vehicleMaintenanceType.getValidVehicles().contains(vehicle.getVehicleType())) {
+                if (!vehicleTypeValidForMaintenanceType(vehicleMaintenanceType,vehicle.getVehicleType())) {
                     throw new IllegalStateException("Vehicle not valid for maintenace Type");
                 }
             } else {
@@ -61,6 +73,21 @@ public class VehicleServiceImpl implements VehicleService {
             }
 
         }
+    }
+
+    private boolean vehicleTypeValidForMaintenanceType(MaintenanceType vehicleMaintenanceType, VehicleType vehicleType) {
+
+        if(vehicleMaintenanceType == null || vehicleType == null) {
+            return false;
+        }
+
+        for(VehicleType validVehicle: vehicleMaintenanceType.getValidVehicles()) {
+            if(validVehicle.getID() == vehicleType.getID()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 

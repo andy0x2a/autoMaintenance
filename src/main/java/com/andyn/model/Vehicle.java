@@ -28,8 +28,13 @@ public class Vehicle {
     @OneToOne()
     private VehicleType vehicleType;
 
-    @OneToMany()
+    @OneToMany( cascade = CascadeType.ALL)
     private List<Maintenance> maintenanceList;
+
+
+    @Column
+    private Long odometer;
+
 
     public Vehicle() {
     }
@@ -91,5 +96,14 @@ public class Vehicle {
 
     public void setMaintenanceList(List<Maintenance> maintenanceList) {
         this.maintenanceList = maintenanceList;
+    }
+
+
+    public Long getOdometer() {
+        return odometer;
+    }
+
+    public void setOdometer(Long odometer) {
+        this.odometer = odometer;
     }
 }

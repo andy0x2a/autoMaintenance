@@ -13,18 +13,78 @@ angular.module('autoMaintenanceApp.vehicles', ['ngRoute','autoMaintenanceApp.ser
 
         $scope.vehicles = [];
         $scope.isEditingVehicle = false;
-        var allVehiclesTask = api.findAllVehicles();
-        allVehiclesTask.then(function(data){
-        $scope.vehicles = data.data;
-        }, function(error) {
+
+        var loadVehicles = function(){
+            var allVehiclesTask = api.findAllVehicles();
+            allVehiclesTask.then(function(data){
+                $scope.vehicles = data.data;
+            }, function(error) {
+                //TODO, better error handling.
+                console.log(error);
+
+            }) ;
+        };
+        loadVehicles();
+
+        var maintenanceTypeTask = api.findAllMaintenanceTypes();
+        maintenanceTypeTask.then(function(data){
+          $scope.maintenanceTypes = data.data;
+        }, function(error){
             //TODO, better error handling.
             console.log(error);
+        });
 
-        }) ;
+        var vehicleTypeTask = api.findAllVehicleTypes();
+        vehicleTypeTask.then(function(data){
+            $scope.vehicleTypes = data.data;
+        }, function(error){
+            //TODO, better error handling.
+            console.log(error);
+        });
+
+        var maintenanceStatusTask = api.findAllMaintenanceStatuses();
+        maintenanceStatusTask.then(function(data){
+            $scope.maintenanceStatuses = data.data;
+        }, function(error){
+            //TODO, better error handling.
+            console.log(error);
+        });
+        $scope.getValidMaintenanceForVehicle = function(vehicleType) {
+            var validMaintenanceTypes = [];
+                 angular.forEach($scope.maintenanceTypes,function(maintType, index){
+                     angular.forEach(maintType.validVehicles, function(validType, typeIndex){
+                         if(validType.id == vehicleType.id){
+                             validMaintenanceTypes.push(maintType);
+                         }
+                     });
+                 });
+            return validMaintenanceTypes;
+        }
 
         $scope.editVehicle = function(vehicle) {
             $scope.isEditingVehicle = true;
             $scope.vehicleToEdit = vehicle;
+            $scope.vehicleToEdit.validMaintenance = $scope.getValidMaintenanceForVehicle(vehicle.vehicleType);
+
+        };
+        $scope.addVehicle = function() {
+                 var newVehicle = {};
+            newVehicle.maintenanceList = [{}];
+            $scope.isEditingVehicle = newVehicle;
+            $scope.vehicles.push(newVehicle);
+        };
+        $scope.saveVehicle = function(vehicle) {
+            var task;
+           if (typeof(vehicle.id) !=="undefined") {
+               task = api.updateVehicle(vehicle,vehicle.id);
+           } else {
+               task = api.createVehicle(vehicle);
+           }
+            task.then(function(response) {
+                loadVehicles();
+            }, function(error){
+
+            });
 
         }
     }]);

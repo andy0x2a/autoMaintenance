@@ -11,7 +11,9 @@ public interface VehicleService {
 
     Iterable<Vehicle> findAllVehicles();
 
-    Vehicle saveVehicle(Vehicle vehicle);
+    Vehicle saveVehicle(Vehicle vehicle, int vehicleId);
 
     Vehicle getVehicleById(int id);
+
+    Vehicle saveVehicle(Vehicle vehicle);
 }

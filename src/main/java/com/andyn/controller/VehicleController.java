@@ -1,9 +1,6 @@
 package com.andyn.controller;
 
-import com.andyn.model.Maintenance;
 import com.andyn.model.Vehicle;
-import com.andyn.repository.MaintenanceRepository;
-import com.andyn.repository.VehicleRepository;
 import com.andyn.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -39,10 +36,10 @@ public class VehicleController {
 
     }
 
-    @RequestMapping(value = "/{vehicleId}/", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{vehicleId}", method = RequestMethod.PUT)
     @ResponseBody
-    public Vehicle updateVehicle(@RequestBody Vehicle vehicle) {
-        return vehicleService.saveVehicle(vehicle);
+    public Vehicle updateVehicle(@RequestBody Vehicle vehicle,@PathVariable(value = "vehicleId") int vehicleId) {
+        return vehicleService.saveVehicle(vehicle, vehicleId);
 
     }
 }

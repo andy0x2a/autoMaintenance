@@ -11,11 +11,12 @@
     <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/bootstrap-theme.css">
+    <link rel="stylesheet" href="./css/app.css">
     <script src="./jslib/bootstrap.min.js"></script>
 
 </head>
 <body>
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default main">
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="#/welcome">Home</a>

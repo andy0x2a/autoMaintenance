@@ -12,10 +12,10 @@ public class Maintenance {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int ID;
 
-    @OneToOne
+    @OneToOne( cascade = CascadeType.ALL)
     private MaintenanceStatus status;
 
-    @OneToOne()
+    @OneToOne( cascade = CascadeType.ALL)
     private MaintenanceType type;
 
     public Maintenance() {

@@ -48,6 +48,14 @@ angular.module('autoMaintenanceApp.service', ['autoMaintenanceApp.constants'])
             };
             return $http(req);
         };
+        var _findAllMaintenanceStatuses = function () {
+            var req = {
+                method: 'GET',
+                url: constants.config.apiBase + '/maintenanceType/statuses'
+
+            };
+            return $http(req);
+        };
         var _findAllVehicleTypes = function () {
             var req = {
                 method: 'GET',
@@ -75,6 +83,7 @@ angular.module('autoMaintenanceApp.service', ['autoMaintenanceApp.constants'])
 
 
             findAllMaintenanceTypes:_findAllMaintenanceTypes,
-            findAllVehicleTypes:_findAllVehicleTypes
+            findAllVehicleTypes:_findAllVehicleTypes,
+            findAllMaintenanceStatuses:_findAllMaintenanceStatuses
         }
     }]);
