@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="autoMaintenance:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="autoMaintenanceTracker.war">
-      <element id="artifact" artifact-name="autoMaintenance:war exploded" />
-    </root>
-  </artifact>
-</component>
