@@ -28,7 +28,6 @@ public class MaintenanceTypeController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     @ResponseBody
     public Iterable<MaintenanceType> listMaintenanceTypeOptions() {
-        System.out.println("Listing!");
         return maintenanceTypeRepository.findAll();
     }
 }

@@ -23,4 +23,15 @@ public class VehicleController {
         System.out.println("Listing!");
         return vehicleRepository.findAll();
     }
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Vehicle getVehicleById(@PathVariable int id) {
+        return vehicleRepository.findOne(id);
+    }
+
+    @RequestMapping(value="/", method=RequestMethod.POST)
+    @ResponseBody
+    public Vehicle createVehicle(@RequestBody Vehicle vehicle) {
+        return vehicleRepository.save(vehicle);
+    }
 }
