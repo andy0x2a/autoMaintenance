@@ -13,15 +13,6 @@ import java.util.List;
 public class VehicleServiceImpl implements VehicleService {
 
     @Autowired
-    private MaintenanceRepository maintenanceRepository;
-
-    @Autowired
-    private VehicleTypeRepository vehicleTypeRepository;
-
-    @Autowired
-    private MaintenanceStatusRepository maintenanceStatusRepository;
-
-    @Autowired
     private VehicleRepository vehicleRepository;
 
     @Autowired

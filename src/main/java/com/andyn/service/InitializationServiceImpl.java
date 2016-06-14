@@ -5,10 +5,7 @@ import com.andyn.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.Dictionary;
-import java.util.Hashtable;
-import java.util.List;
+import java.util.*;
 
 /**
  * Bootstraps the setup of the database, creating required data
@@ -32,28 +29,32 @@ public class InitializationServiceImpl  implements InitializationService{
     private MaintenanceTypeRepository maintenanceTypeRepository;
 
     public void setupData() {
-//        deleteAllData();
         Dictionary<String, VehicleType> vehicleTypes = createVehicleTypes();
         Dictionary<String, MaintenanceType> maintenanceTypes = createMaintenanceStatusesAndTypes(vehicleTypes);
-        createMaintenance(maintenanceTypes);
-        createMaintenanceStatus();
-        createVehicles(vehicleTypes);
+        Dictionary<String, MaintenanceStatus> maintenanceStatuses = createMaintenanceStatus();
+        Maintenance sampleMaintenance = createMaintenance(maintenanceTypes, maintenanceStatuses);
+        createVehicles(vehicleTypes, sampleMaintenance);
 
     }
 
-    private void createVehicles(Dictionary<String, VehicleType> vehicleTypes) {
+    private void createVehicles(Dictionary<String, VehicleType> vehicleTypes, Maintenance sampleMaintenance) {
         Vehicle  car = new Vehicle();
         car.setMake("Honda");
         car.setModel("Civic");
-        car.setVehicleType(vehicleTypes.get("E"));
+        car.setVehicleType(vehicleTypes.get("G"));
+        car.setMaintenanceList(Arrays.asList(sampleMaintenance));
+
+
         vehicleRepository.save(car);
     }
 
-    private void createMaintenance(Dictionary<String, MaintenanceType> maintenanceTypes) {
+    private Maintenance createMaintenance(Dictionary<String, MaintenanceType> maintenanceTypes,
+                                          Dictionary<String, MaintenanceStatus> maintenanceStatuses) {
 
         Maintenance maintenance = new Maintenance();
         maintenance.setType(maintenanceTypes.get("O"));
-        maintenanceRepository.save(maintenance);
+        maintenance.setStatus(maintenanceStatuses.get("P"));
+        return maintenanceRepository.save(maintenance);
 
     }
 
@@ -74,7 +75,7 @@ public class InitializationServiceImpl  implements InitializationService{
                 statuses.get("D")
         );
 
-        Iterable<MaintenanceStatus> savedStatusList = maintenanceStatusRepository.save(listOfStatuses);
+       maintenanceStatusRepository.save(listOfStatuses);
 
 
         return statuses;
@@ -129,10 +130,4 @@ public class InitializationServiceImpl  implements InitializationService{
 
     }
 
-    private void deleteAllData() {
-        maintenanceRepository.deleteAll();
-        vehicleRepository.deleteAll();
-        vehicleTypeRepository.deleteAll();
-        maintenanceStatusRepository.deleteAll();
-    }
 }

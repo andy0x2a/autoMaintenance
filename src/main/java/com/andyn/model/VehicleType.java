@@ -16,12 +16,6 @@ public class VehicleType {
     @Column()
     private String type;
 
-//
-//    @Column
-//    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "validVehicles")
-//    List<MaintenanceType> validMaintenanceTypes;
-
-
 
     public VehicleType() {
     }
@@ -45,12 +39,6 @@ public class VehicleType {
         this.ID = ID;
     }
 
-//    public List<MaintenanceType> getValidMaintenanceTypes() {
-//        return validMaintenanceTypes;
-//    }
-//
-//    public void setValidMaintenanceTypes(List<MaintenanceType> validMaintenanceTypes) {
-//        this.validMaintenanceTypes = validMaintenanceTypes;
-//    }
+
 }
 
