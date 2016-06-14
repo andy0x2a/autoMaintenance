@@ -40,11 +40,41 @@ angular.module('autoMaintenanceApp.service', ['autoMaintenanceApp.constants'])
             };
             return $http(req);
         };
+        var _findAllMaintenanceTypes = function () {
+            var req = {
+                method: 'GET',
+                url: constants.config.apiBase + '/maintenanceType/'
+
+            };
+            return $http(req);
+        };
+        var _findAllVehicleTypes = function () {
+            var req = {
+                method: 'GET',
+                url: constants.config.apiBase + '/vehicleType/'
+
+            };
+            return $http(req);
+        };
+        var _getMaintenanceById = function (id) {
+            var req = {
+                method: 'GET',
+                url: constants.config.apiBase + '/maintenance/' +id
+
+            };
+            return $http(req);
+        };
+
         return {
             initializeDatabase: _initializeDatabase,
             findAllVehicles:_findAllVehicles,
             getVehicle:_getVehicle,
             createVehicle:_createVehicle,
-            updateVehicle:_updateVehicle
+            updateVehicle:_updateVehicle,
+            getMaintenanceById:_getMaintenanceById,
+
+
+            findAllMaintenanceTypes:_findAllMaintenanceTypes,
+            findAllVehicleTypes:_findAllVehicleTypes
         }
     }]);

@@ -9,25 +9,30 @@
         <b>Description:</b><span>{{vehicle.description}}</span>
         <b>Odometer:</b><span>{{vehicle.odometer}}</span>
         <b>Type:</b><span>{{vehicle.vehicleType.type}}</span>
-        <div >
+
+        <div>
             <h4>Maintenance</h4>
             <ul ng-repeat="maintenance in vehicle.maintenanceList track by maintenance.id">
                 <li><span>{{maintenance.type.name}} </span><span>{{maintenance.status.status}}</span></li>
 
             </ul>
-            </div>
-         <br>
-        <button ng-click="edit(vehicle)">Edit</button>
+        </div>
+        <br>
+        <button ng-click="editVehicle(vehicle)">Edit</button>
         <br>
     </div>
 
 </div>
 <div id="editVehicleArea" ng-show="isEditingVehicle">
-    <b>Id:</b><input id="editId" name="editId" ng-model="vehicleToEdit.id"/>
-    <b>Make:</b><input id="editMake" name="editMake" ng-model="vehicleToEdit.make"/>
-    <b>Model:</b><input id="editModel" name="editModel" ng-model="vehicleToEdit.model"/>
-    <b>Year:</b><input id="editYear" name="editYear" ng-model="vehicleToEdit.year"/>
-    <b>Description:</b><input id="editDescr" name="editDescr" ng-model="vehicleToEdit.description"/>
-    <b>Odometer:</b><input id="editOdo" name="editOdo" ng-model="vehicleToEdit.odometer"/>
-    <br>
+    <div><b>Id:</b><input id="editId" name="editId" ng-model="vehicleToEdit.id"/></div>
+<div><b>Make:</b><input id="editMake" name="editMake" ng-model="vehicleToEdit.make"/></div>
+<div><b>Model:</b><input id="editModel" name="editModel" ng-model="vehicleToEdit.model"/></div>
+<div><b>Year:</b><input id="editYear" name="editYear" ng-model="vehicleToEdit.year"/></div>
+<div><b>Description:</b><input id="editDescr" name="editDescr" ng-model="vehicleToEdit.description"/></div>
+<div><b>Odometer:</b><input id="editOdo" name="editOdo" ng-model="vehicleToEdit.odometer"/></div>
+<div ng-repeat="maintenance in vehicleToEdit.maintenanceList track by maintenance.id">
+    <span>{{maintenance.type.name}} </span><span>{{maintenance.status.status}}</span>
+    <button ng-click="editMaintenance(maintenance)">Edit</button>
+</div>
+
 </div>
