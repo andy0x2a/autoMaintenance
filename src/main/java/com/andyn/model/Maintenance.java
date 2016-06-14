@@ -1,6 +1,7 @@
 package com.andyn.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -11,14 +12,16 @@ public class Maintenance {
     @GeneratedValue
     private int ID;
 
-    @Column()
-    private String name;
+    @OneToOne
+    private MaintenanceStatus status;
 
     @OneToOne()
-    private MaintenanceStatus status;
+    private MaintenanceType type;
 
     public Maintenance() {
     }
+
+
 
     public int getID() {
         return ID;
@@ -28,19 +31,19 @@ public class Maintenance {
         this.ID = ID;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public MaintenanceStatus getStatus() {
         return status;
     }
 
     public void setStatus(MaintenanceStatus status) {
         this.status = status;
+    }
+
+    public MaintenanceType getType() {
+        return type;
+    }
+
+    public void setType(MaintenanceType type) {
+        this.type = type;
     }
 }

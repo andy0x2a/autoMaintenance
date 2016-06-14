@@ -14,16 +14,20 @@ public class MaintenanceStatus {
 
     public MaintenanceStatus() {
     }
+    public MaintenanceStatus(String status) {
+        this.status = status;
+    }
+
 
     @Column()
-    private String Status;
+    private String status;
 
     public String getStatus() {
-        return Status;
+        return status;
     }
 
     public void setStatus(String status) {
-        Status = status;
+        this.status = status;
     }
 
     public int getID() {

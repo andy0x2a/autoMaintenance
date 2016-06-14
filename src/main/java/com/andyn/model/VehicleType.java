@@ -13,18 +13,20 @@ public class VehicleType {
     private int ID;
 
     @Column()
-    private String Type;
+    private String type;
 
     public VehicleType() {
     }
-
+    public VehicleType(String type) {
+        this.type = type;
+    }
 
     public String getType() {
-        return Type;
+        return type;
     }
 
     public void setType(String type) {
-        Type = type;
+        this.type = type;
     }
 
     public int getID() {
