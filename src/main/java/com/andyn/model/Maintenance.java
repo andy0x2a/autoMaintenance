@@ -9,7 +9,7 @@ import java.util.List;
 public class Maintenance {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int ID;
 
     @OneToOne

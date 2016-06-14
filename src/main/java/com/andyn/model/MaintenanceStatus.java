@@ -9,7 +9,8 @@ public class MaintenanceStatus {
 
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+
     private int ID;
 
     public MaintenanceStatus() {

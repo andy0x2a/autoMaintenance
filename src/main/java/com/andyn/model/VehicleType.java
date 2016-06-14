@@ -2,6 +2,7 @@ package com.andyn.model;
 
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "vehicleType")
@@ -9,11 +10,18 @@ public class VehicleType {
 
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int ID;
 
     @Column()
     private String type;
+
+//
+//    @Column
+//    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "validVehicles")
+//    List<MaintenanceType> validMaintenanceTypes;
+
+
 
     public VehicleType() {
     }
@@ -36,5 +44,13 @@ public class VehicleType {
     public void setID(int ID) {
         this.ID = ID;
     }
+
+//    public List<MaintenanceType> getValidMaintenanceTypes() {
+//        return validMaintenanceTypes;
+//    }
+//
+//    public void setValidMaintenanceTypes(List<MaintenanceType> validMaintenanceTypes) {
+//        this.validMaintenanceTypes = validMaintenanceTypes;
+//    }
 }
 

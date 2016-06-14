@@ -9,13 +9,18 @@ import java.util.List;
 public class MaintenanceType {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int ID;
 
     @Column()
     private String name;
 
-    @OneToMany
+
+    @ManyToMany
+    @JoinTable(
+            name="maintenance_allowed_types",
+            joinColumns=@JoinColumn(name="mtype_id", referencedColumnName="id"),
+            inverseJoinColumns=@JoinColumn(name="vtype_id", referencedColumnName="id"))
     private List<VehicleType> validVehicles;
 
     public MaintenanceType() {

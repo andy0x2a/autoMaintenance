@@ -6,7 +6,7 @@ angular.module('autoMaintenanceApp.service', ['autoMaintenanceApp.constants'])
         var _initializeDatabase = function () {
             var req = {
                 method: 'POST',
-                url: constants.config.apiBase + '/init'
+                url: constants.config.apiBase + '/init/'
             };
             return $http(req);
         };

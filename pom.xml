@@ -55,15 +55,19 @@
 </dependencies>
   <build>
     <finalName>autoMaintenanceTracker</finalName>
+
+      <resources>
+          <resource>
+              <directory>src/main/resources</directory>
+          </resource>
+          <resource>
+              <directory>static</directory>
+              <targetPath>static</targetPath>
+          </resource>
+      </resources>
+
   </build>
+
+
+
 </project>
-    <resources>
-    <resource>
-        <directory>src/main/resources</directory>
-        <directory>src/main/static</directory>
-    </resource>
-    <resource>
-        <directory>static</directory>
-        <targetPath>static</targetPath>
-    </resource>
-</resources>
