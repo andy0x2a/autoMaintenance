@@ -1,6 +1,5 @@
 package com.andyn;
 
-import com.andyn.AutoMaintenanceServerInitializer;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 

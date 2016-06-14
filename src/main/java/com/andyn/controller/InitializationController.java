@@ -1,7 +1,7 @@
 package com.andyn.controller;
 
 
-import com.andyn.service.InitializationService;
+import com.andyn.service.InitializationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,15 +12,16 @@ public class InitializationController {
 
 
   @Autowired
-  private InitializationService initializationService;
+  private InitializationServiceImpl initializationService;
 
     public InitializationController() {
 
     }
 
-    public  InitializationController(InitializationService initializationService) {
+    public  InitializationController(InitializationServiceImpl initializationService) {
         this.initializationService = initializationService;
     }
+
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public void setup() {
