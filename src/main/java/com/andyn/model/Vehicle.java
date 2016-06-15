@@ -28,7 +28,7 @@ public class Vehicle {
     @OneToOne()
     private VehicleType vehicleType;
 
-    @OneToMany( cascade = CascadeType.ALL)
+    @OneToMany(  cascade = {CascadeType.DETACH,CascadeType.REMOVE,CascadeType.REFRESH})
     private List<Maintenance> maintenanceList;
 
 

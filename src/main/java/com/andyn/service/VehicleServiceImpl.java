@@ -12,13 +12,7 @@ public class VehicleServiceImpl implements VehicleService {
     private VehicleRepository vehicleRepository;
 
     @Autowired
-    private MaintenanceTypeRepository maintenanceTypeRepository;
-
-
-    @Override
-    public boolean isVehicleValidForMaintenance(Vehicle vehicle, MaintenanceType maintenanceType) {
-        return maintenanceType.getValidVehicles().contains(vehicle.getVehicleType());
-    }
+    private MaintenanceRepository maintenanceRepository;
 
     @Override
     public Iterable<Vehicle> findAllVehicles() {
@@ -33,6 +27,7 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public Vehicle saveVehicle(Vehicle vehicle) {
         validateVehicleAndMaintenance(vehicle);
+        maintenanceRepository.save(vehicle.getMaintenanceList());
         return vehicleRepository.save(vehicle);
 
     }
@@ -42,6 +37,7 @@ public class VehicleServiceImpl implements VehicleService {
 
         validateVehicleAndId(vehicle,vehicleId);
         validateVehicleAndMaintenance(vehicle);
+        maintenanceRepository.save(vehicle.getMaintenanceList());
         return vehicleRepository.save(vehicle);
 
     }
@@ -60,19 +56,14 @@ public class VehicleServiceImpl implements VehicleService {
      * @param vehicle
      */
     private void validateVehicleAndMaintenance(Vehicle vehicle) throws IllegalStateException {
-        //TODO, look into inverting this relationship.
 
-        for (Maintenance maintenance : vehicle.getMaintenanceList()) {
-            MaintenanceType vehicleMaintenanceType = maintenanceTypeRepository.findOne(maintenance.getType().getID());
-            if (vehicleMaintenanceType != null) {
-                if (!vehicleTypeValidForMaintenanceType(vehicleMaintenanceType,vehicle.getVehicleType())) {
-                    throw new IllegalStateException("Vehicle not valid for maintenace Type");
-                }
-            } else {
-                throw new IllegalStateException("Maintenance Type not found");
+
+        for (Maintenance maintenance : vehicle.getMaintenanceList() ) {
+            if(!vehicleTypeValidForMaintenanceType(maintenance.getType(),vehicle.getVehicleType())) {
+                throw new IllegalStateException("Maintenance type not valid for vehicle type");
             }
-
         }
+        return;
     }
 
     private boolean vehicleTypeValidForMaintenanceType(MaintenanceType vehicleMaintenanceType, VehicleType vehicleType) {
@@ -80,9 +71,8 @@ public class VehicleServiceImpl implements VehicleService {
         if(vehicleMaintenanceType == null || vehicleType == null) {
             return false;
         }
-
-        for(VehicleType validVehicle: vehicleMaintenanceType.getValidVehicles()) {
-            if(validVehicle.getID() == vehicleType.getID()) {
+        for(MaintenanceType maintenanceType : vehicleType.getValidMaintenanceTypes()) {
+            if(maintenanceType.getID() == vehicleMaintenanceType.getID()) {
                 return true;
             }
         }

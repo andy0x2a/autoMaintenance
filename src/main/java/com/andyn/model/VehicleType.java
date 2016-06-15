@@ -17,6 +17,13 @@ public class VehicleType {
     private String type;
 
 
+    @ManyToMany( cascade = { CascadeType.PERSIST,CascadeType.DETACH,CascadeType.REMOVE,CascadeType.REFRESH})
+    @JoinTable(
+            name="maintenance_allowed_types",
+            joinColumns=@JoinColumn(name="vtype_id", referencedColumnName="id"),
+            inverseJoinColumns=@JoinColumn(name="mtype_id", referencedColumnName="id"))
+    private List<MaintenanceType> validMaintenanceTypes;
+
     public VehicleType() {
     }
     public VehicleType(String type) {
@@ -40,5 +47,12 @@ public class VehicleType {
     }
 
 
+    public List<MaintenanceType> getValidMaintenanceTypes() {
+        return validMaintenanceTypes;
+    }
+
+    public void setValidMaintenanceTypes(List<MaintenanceType> validMaintenanceTypes) {
+        this.validMaintenanceTypes = validMaintenanceTypes;
+    }
 }
 

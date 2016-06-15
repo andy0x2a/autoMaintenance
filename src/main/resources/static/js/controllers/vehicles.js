@@ -50,15 +50,7 @@ angular.module('autoMaintenanceApp.vehicles', ['ngRoute','autoMaintenanceApp.ser
             console.log(error);
         });
         $scope.getValidMaintenanceForVehicle = function(vehicleType) {
-            var validMaintenanceTypes = [];
-                 angular.forEach($scope.maintenanceTypes,function(maintType, index){
-                     angular.forEach(maintType.validVehicles, function(validType, typeIndex){
-                         if(validType.id == vehicleType.id){
-                             validMaintenanceTypes.push(maintType);
-                         }
-                     });
-                 });
-            return validMaintenanceTypes;
+            return vehicleType.validMaintenanceTypes;
         }
 
         $scope.editVehicle = function(vehicle) {
@@ -85,6 +77,9 @@ angular.module('autoMaintenanceApp.vehicles', ['ngRoute','autoMaintenanceApp.ser
             }, function(error){
 
             });
+        }
+        $scope.addNewMaintenance = function(vehicleToEdit){
+            vehicleToEdit.maintenanceList.push({});
 
         }
     }]);

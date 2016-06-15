@@ -29,32 +29,43 @@ public class InitializationServiceImpl  implements InitializationService{
     private MaintenanceTypeRepository maintenanceTypeRepository;
 
     public void setupData() {
-        Dictionary<String, VehicleType> vehicleTypes = createVehicleTypes();
-        Dictionary<String, MaintenanceType> maintenanceTypes = createMaintenanceStatusesAndTypes(vehicleTypes);
+
+        Dictionary<String, MaintenanceType> maintenanceTypes = createMaintenanceTypes();
+        Dictionary<String, VehicleType> vehicleTypes = createVehicleTypes(maintenanceTypes);
         Dictionary<String, MaintenanceStatus> maintenanceStatuses = createMaintenanceStatus();
-        Maintenance sampleMaintenance = createMaintenance(maintenanceTypes, maintenanceStatuses);
+        Iterable<Maintenance> sampleMaintenance = createMaintenanceList(maintenanceTypes, maintenanceStatuses);
         createVehicles(vehicleTypes, sampleMaintenance);
 
     }
 
-    private void createVehicles(Dictionary<String, VehicleType> vehicleTypes, Maintenance sampleMaintenance) {
+    private void createVehicles(Dictionary<String, VehicleType> vehicleTypes,Iterable<Maintenance> sampleMaintenance) {
         Vehicle  car = new Vehicle();
         car.setMake("Honda");
         car.setModel("Civic");
         car.setVehicleType(vehicleTypes.get("G"));
-        car.setMaintenanceList(Arrays.asList(sampleMaintenance));
 
+        ArrayList maintenanceList = new ArrayList();
+        for (Maintenance maintenance : sampleMaintenance) {
+            maintenanceList.add(maintenance);
+        }
+
+        car.setMaintenanceList(maintenanceList);
 
         vehicleRepository.save(car);
     }
 
-    private Maintenance createMaintenance(Dictionary<String, MaintenanceType> maintenanceTypes,
+    private Iterable<Maintenance> createMaintenanceList(Dictionary<String, MaintenanceType> maintenanceTypes,
                                           Dictionary<String, MaintenanceStatus> maintenanceStatuses) {
 
-        Maintenance maintenance = new Maintenance();
-        maintenance.setType(maintenanceTypes.get("O"));
-        maintenance.setStatus(maintenanceStatuses.get("P"));
-        return maintenanceRepository.save(maintenance);
+        Maintenance oil = new Maintenance();
+        oil.setType(maintenanceTypes.get("O"));
+        oil.setStatus(maintenanceStatuses.get("P"));
+
+        Maintenance oilExpired = new Maintenance();
+        oilExpired.setType(maintenanceTypes.get("O"));
+        oilExpired.setStatus(maintenanceStatuses.get("E"));
+
+        return maintenanceRepository.save(Arrays.asList(oil,oilExpired));
 
     }
 
@@ -82,26 +93,20 @@ public class InitializationServiceImpl  implements InitializationService{
 
     }
 
-    private Dictionary<String, MaintenanceType> createMaintenanceStatusesAndTypes(Dictionary<String, VehicleType> vehicleTypes) {
+    private Dictionary<String, MaintenanceType> createMaintenanceTypes() {
 
 
         MaintenanceType oilChange = new MaintenanceType();
-        oilChange.setName("OilChange");
-        List<VehicleType> validOilChangeTypes = Arrays.asList(vehicleTypes.get("G"),vehicleTypes.get("H"));
-        oilChange.setValidVehicles(validOilChangeTypes);
+        oilChange.setName("Oil Change");
         oilChange = maintenanceTypeRepository.save(oilChange);
 
         MaintenanceType tireRotation = new MaintenanceType();
         tireRotation.setName("Tire Rotation");
-        List<VehicleType> validTireRotationTypes = Arrays.asList(vehicleTypes.get("G"),vehicleTypes.get("H"), vehicleTypes.get("E"));
-        tireRotation.setValidVehicles(validTireRotationTypes);
         tireRotation = maintenanceTypeRepository.save(tireRotation);
 
 
         MaintenanceType batteryCharge = new MaintenanceType();
         batteryCharge.setName("Battery Charge");
-        List<VehicleType> validBatteryChargeTypes = Arrays.asList(vehicleTypes.get("H"), vehicleTypes.get("E"));
-        batteryCharge.setValidVehicles(validBatteryChargeTypes);
         batteryCharge = maintenanceTypeRepository.save(batteryCharge);
 
 
@@ -113,10 +118,15 @@ public class InitializationServiceImpl  implements InitializationService{
         return types;
     }
 
-    private Dictionary<String, VehicleType> createVehicleTypes() {
+    private Dictionary<String, VehicleType> createVehicleTypes(Dictionary<String, MaintenanceType> maintenanceTypes) {
         VehicleType gas = new VehicleType("Gas");
+        gas.setValidMaintenanceTypes(Arrays.asList(maintenanceTypes.get("O"), maintenanceTypes.get("T")));
+
         VehicleType electric = new VehicleType("Electric");
+        electric.setValidMaintenanceTypes(Arrays.asList(maintenanceTypes.get("B"),maintenanceTypes.get("T")));
+
         VehicleType hybrid = new VehicleType("Hybrid");
+        hybrid.setValidMaintenanceTypes(Arrays.asList(maintenanceTypes.get("B"),maintenanceTypes.get("T"),maintenanceTypes.get("O")));
 
         gas = vehicleTypeRepository.save(gas);
         electric = vehicleTypeRepository.save(electric);

@@ -37,21 +37,21 @@
 <div><label for="editYear">Year:</label><input id="editYear" name="editYear" ng-model="vehicleToEdit.year"/></div>
 <div><label for="editDescr">Description:</label><input id="editDescr" name="editDescr" ng-model="vehicleToEdit.description"/></div>
 <div><label for="editodo">Odometer:</label><input id="editOdo" name="editOdo" ng-model="vehicleToEdit.odometer"/></div>
-    <span> Maintenance:</span>
-<div ng-repeat="maintenance in vehicleToEdit.maintenanceList track by maintenance.id">
-    <label for="maintType">Type</label>
-    <span id="maintType">{{maintenance.type.name}} </span>
-    <label for="maintStatus">Status:</label>
-    <span id="maintStatus">{{maintenance.status.status}}</span>
-    <div >
-        <select ng-options="maintenanceType as maintenanceType.name for maintenanceType in vehicleToEdit.validMaintenance track by maintenanceType.id"
-                ng-model="maintenance.type"></select>
-        <select ng-options="maintenanceStatus as maintenanceStatus.status for maintenanceStatus in maintenanceStatuses track by maintenanceStatus.id"
-                ng-model="maintenance.status"></select>
-
-
+    <div class="main">
+        <span> Maintenance:</span>
+        <div ng-repeat="maintenance in vehicleToEdit.maintenanceList track by $index">
+            <label for="maintType">Type</label>
+            <select id="maintType" ng-options="maintenanceType as maintenanceType.name for maintenanceType in vehicleToEdit.validMaintenance track by maintenanceType.id"
+                    ng-model="maintenance.type"></select>
+            <label for="maintStatus">Status:</label>
+            <select id="maintStatus" ng-options="maintenanceStatus as maintenanceStatus.status for maintenanceStatus in maintenanceStatuses track by maintenanceStatus.id"
+                    ng-model="maintenance.status"></select>
+            <button ng-click="vehicleToEdit.maintenanceList.splice($index,1);">Remove</button>
+        </div>
+        <button ng-click="addNewMaintenance(vehicleToEdit)">Add Maintenance</button>
     </div>
-</div>
+
+
      <button ng-click="saveVehicle(vehicleToEdit)">Save</button>
     <button ng-click="isEditingVehicle=false;vehicleToEdit=undefined">Cancel</button>
 </div>

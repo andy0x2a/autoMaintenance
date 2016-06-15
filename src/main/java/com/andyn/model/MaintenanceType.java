@@ -15,24 +15,24 @@ public class MaintenanceType {
     @Column()
     private String name;
 
-
-    @ManyToMany( cascade = CascadeType.ALL)
-    @JoinTable(
-            name="maintenance_allowed_types",
-            joinColumns=@JoinColumn(name="mtype_id", referencedColumnName="id"),
-            inverseJoinColumns=@JoinColumn(name="vtype_id", referencedColumnName="id"))
-    private List<VehicleType> validVehicles;
+//
+//    @ManyToMany( cascade = CascadeType.ALL)
+//    @JoinTable(
+//            name="maintenance_allowed_types",
+//            joinColumns=@JoinColumn(name="mtype_id", referencedColumnName="id"),
+//            inverseJoinColumns=@JoinColumn(name="vtype_id", referencedColumnName="id"))
+//    private List<VehicleType> validVehicles;
 
     public MaintenanceType() {
     }
 
-    public List<VehicleType> getValidVehicles() {
-        return validVehicles;
-    }
-
-    public void setValidVehicles(List<VehicleType> validVehicles) {
-        this.validVehicles = validVehicles;
-    }
+//    public List<VehicleType> getValidVehicles() {
+//        return validVehicles;
+//    }
+//
+//    public void setValidVehicles(List<VehicleType> validVehicles) {
+//        this.validVehicles = validVehicles;
+//    }
 
     public int getID() {
         return ID;
