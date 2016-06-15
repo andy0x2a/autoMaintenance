@@ -1,5 +1,5 @@
 <div id="vehicleList" ng-hide="isEditingVehicle">
-    <div ng-repeat="vehicle in vehicles track by vehicle.id">
+    <div ng-repeat="vehicle in vehicles track by $index">
         <h3>
             {{vehicle.id}}
         </h3>

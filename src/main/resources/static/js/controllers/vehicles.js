@@ -20,7 +20,7 @@ angular.module('autoMaintenanceApp.vehicles', ['ngRoute','autoMaintenanceApp.ser
                 $scope.vehicles = data.data;
             }, function(error) {
                 //TODO, better error handling.
-                console.log(error);
+                alert(error);
 
             }) ;
         };
@@ -31,7 +31,7 @@ angular.module('autoMaintenanceApp.vehicles', ['ngRoute','autoMaintenanceApp.ser
           $scope.maintenanceTypes = data.data;
         }, function(error){
             //TODO, better error handling.
-            console.log(error);
+            alert(error);
         });
 
         var vehicleTypeTask = api.findAllVehicleTypes();
@@ -39,7 +39,7 @@ angular.module('autoMaintenanceApp.vehicles', ['ngRoute','autoMaintenanceApp.ser
             $scope.vehicleTypes = data.data;
         }, function(error){
             //TODO, better error handling.
-            console.log(error);
+            alert(error);
         });
 
         var maintenanceStatusTask = api.findAllMaintenanceStatuses();
@@ -47,7 +47,7 @@ angular.module('autoMaintenanceApp.vehicles', ['ngRoute','autoMaintenanceApp.ser
             $scope.maintenanceStatuses = data.data;
         }, function(error){
             //TODO, better error handling.
-            console.log(error);
+            alert(error);
         });
         $scope.getValidMaintenanceForVehicle = function(vehicleType) {
             return vehicleType.validMaintenanceTypes;
@@ -62,7 +62,8 @@ angular.module('autoMaintenanceApp.vehicles', ['ngRoute','autoMaintenanceApp.ser
         $scope.addVehicle = function() {
                  var newVehicle = {};
             newVehicle.maintenanceList = [{}];
-            $scope.isEditingVehicle = newVehicle;
+            $scope.vehicleToEdit = newVehicle;
+            $scope.isEditingVehicle = true;
             $scope.vehicles.push(newVehicle);
         };
         $scope.saveVehicle = function(vehicle) {
@@ -74,7 +75,10 @@ angular.module('autoMaintenanceApp.vehicles', ['ngRoute','autoMaintenanceApp.ser
            }
             task.then(function(response) {
                 loadVehicles();
+                $scope.vehicleToEdit = undefined;
+                $scope.isEditingVehicle = false;
             }, function(error){
+                alert("Something went wrong saving");
 
             });
         }

@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-
-</body>
-</html>
+<div>
+    <div ng-repeat="maintenanceType in maintenanceTypes track by $index">
+        <div><label for="typeId">Id:</label><span id="typeId">{{maintenanceType.id}}</span></div>
+        <div><label for="typeName">Name:</label><input id="typeName" ng-model="maintenanceType.name"></span></div>
+    </div>
+    <button ng-click="maintenanceTypes.push({})">Add Type</button>
+    </div>
