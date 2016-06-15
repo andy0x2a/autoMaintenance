@@ -1,11 +1,11 @@
 package com.andyn.controller;
 
-import com.andyn.model.MaintenanceType;
 import com.andyn.model.VehicleType;
-import com.andyn.repository.MaintenanceTypeRepository;
 import com.andyn.repository.VehicleTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -28,7 +28,18 @@ public class VehicleTypeController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     @ResponseBody
     public Iterable<VehicleType> listMaintenanceTypeOptions() {
-        System.out.println("Listing!");
         return vehicleTypeRepository.findAll();
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public void removeTypeById(@PathVariable int id) {
+        vehicleTypeRepository.delete(id);
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @ResponseBody
+    public Iterable<VehicleType> saveVehicleTypes(@RequestBody List<VehicleType> vehicles) {
+        return vehicleTypeRepository.save(vehicles);
+
     }
 }

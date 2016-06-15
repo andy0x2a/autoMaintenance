@@ -1,7 +1,43 @@
-<div>
+<div class="col-md-4">
+    <h1> Maintenance Types</h1>
+
     <div ng-repeat="maintenanceType in maintenanceTypes track by $index">
         <div><label for="typeId">Id:</label><span id="typeId">{{maintenanceType.id}}</span></div>
         <div><label for="typeName">Name:</label><input id="typeName" ng-model="maintenanceType.name"></span></div>
+        <button ng-click="removeMaintenanceType(maintenanceType)">Delete</button>
     </div>
     <button ng-click="maintenanceTypes.push({})">Add Type</button>
+    <button ng-click="saveMaintenanceTypes()">Save Maintenance Types</button>
+</div>
+
+
+<div class="col-md-4">
+    <h1>Maintenance Statuses</h1>
+
+    <div ng-repeat="maintenanceStatus in maintenanceStatuses track by $index">
+        <div><label for="statusId">Id:</label><span id="statusId">{{maintenanceStatus.id}}</span></div>
+        <div><label for="statusName">Name:</label><input id="statusName" ng-model="maintenanceStatus.status"></span>
+        </div>
     </div>
+
+
+</div>
+
+<div class="col-md-4">
+    <h1>Vehicle Types</h1>
+
+    <div ng-repeat="vehicleType in vehicleTypes track by $index">
+        <div><label for="vehicleTypeId">Id:</label><span id="vehicleTypeId">{{vehicleType.id}}</span></div>
+        <div><label for="vehicleTypeName">Name:</label><input id="vehicleTypeName" ng-model="vehicleType.type"></span>
+        </div>
+        <lable> Valid Maintenance Types</lable>
+        <ul ng-repeat="maintenanceType in vehicleType.validMaintenanceTypes track by maintenanceType.id">
+            <li><span>{{maintenanceType.name}} </span></li>
+        </ul>
+
+        <button ng-click="removeVehicleType(vehicleType,$index)">Delete</button>
+    </div>
+    <button ng-click="vehicleTypes.push({})">Add Vehicle Type</button>
+    <button ng-click="saveVehicleTypes()">Save Vehicle Types</button>
+</div>
+

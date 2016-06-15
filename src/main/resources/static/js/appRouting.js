@@ -7,6 +7,6 @@ angular.module('autoMaintenanceApp', [
     'autoMaintenanceApp.welcome',
 
 ]).
-    config(['$routeProvider', function($routeProvider) {
+    config(['$routeProvider', function ($routeProvider) {
         $routeProvider.otherwise({redirectTo: '/welcome'});
     }]);

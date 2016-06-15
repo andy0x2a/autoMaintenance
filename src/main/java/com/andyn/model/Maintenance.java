@@ -1,7 +1,6 @@
 package com.andyn.model;
 
 import javax.persistence.*;
-import java.util.List;
 
 
 @Entity
@@ -9,21 +8,17 @@ import java.util.List;
 public class Maintenance {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int ID;
 
-//    @OneToOne( cascade = { CascadeType.PERSIST,CascadeType.DETACH,CascadeType.REMOVE,CascadeType.REFRESH})
     @OneToOne()
     private MaintenanceStatus status;
 
-//    @OneToOne( cascade = { CascadeType.PERSIST,CascadeType.DETACH,CascadeType.REMOVE,CascadeType.REFRESH})
     @OneToOne()
     private MaintenanceType type;
 
     public Maintenance() {
     }
-
-
 
     public int getID() {
         return ID;

@@ -9,7 +9,7 @@ public class Vehicle {
 
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private int id;
 
@@ -28,7 +28,7 @@ public class Vehicle {
     @OneToOne()
     private VehicleType vehicleType;
 
-    @OneToMany(  cascade = {CascadeType.DETACH,CascadeType.REMOVE,CascadeType.REFRESH})
+    @OneToMany(cascade = {CascadeType.DETACH, CascadeType.REMOVE, CascadeType.REFRESH})
     private List<Maintenance> maintenanceList;
 
 
@@ -38,7 +38,6 @@ public class Vehicle {
 
     public Vehicle() {
     }
-
 
 
     public VehicleType getVehicleType() {

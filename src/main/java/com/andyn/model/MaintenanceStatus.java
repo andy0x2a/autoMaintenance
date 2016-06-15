@@ -9,12 +9,13 @@ public class MaintenanceStatus {
 
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private int ID;
 
     public MaintenanceStatus() {
     }
+
     public MaintenanceStatus(String status) {
         this.status = status;
     }

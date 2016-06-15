@@ -11,7 +11,7 @@ import java.util.*;
  * Bootstraps the setup of the database, creating required data
  */
 @Service
-public class InitializationServiceImpl  implements InitializationService{
+public class InitializationServiceImpl implements InitializationService {
 
     @Autowired
     private MaintenanceRepository maintenanceRepository;
@@ -38,8 +38,8 @@ public class InitializationServiceImpl  implements InitializationService{
 
     }
 
-    private void createVehicles(Dictionary<String, VehicleType> vehicleTypes,Iterable<Maintenance> sampleMaintenance) {
-        Vehicle  car = new Vehicle();
+    private void createVehicles(Dictionary<String, VehicleType> vehicleTypes, Iterable<Maintenance> sampleMaintenance) {
+        Vehicle car = new Vehicle();
         car.setMake("Honda");
         car.setModel("Civic");
         car.setVehicleType(vehicleTypes.get("G"));
@@ -55,7 +55,7 @@ public class InitializationServiceImpl  implements InitializationService{
     }
 
     private Iterable<Maintenance> createMaintenanceList(Dictionary<String, MaintenanceType> maintenanceTypes,
-                                          Dictionary<String, MaintenanceStatus> maintenanceStatuses) {
+                                                        Dictionary<String, MaintenanceStatus> maintenanceStatuses) {
 
         Maintenance oil = new Maintenance();
         oil.setType(maintenanceTypes.get("O"));
@@ -65,17 +65,17 @@ public class InitializationServiceImpl  implements InitializationService{
         oilExpired.setType(maintenanceTypes.get("O"));
         oilExpired.setStatus(maintenanceStatuses.get("E"));
 
-        return maintenanceRepository.save(Arrays.asList(oil,oilExpired));
+        return maintenanceRepository.save(Arrays.asList(oil, oilExpired));
 
     }
 
-    private Dictionary<String,MaintenanceStatus> createMaintenanceStatus(){
+    private Dictionary<String, MaintenanceStatus> createMaintenanceStatus() {
         Dictionary<String, MaintenanceStatus> statuses = new Hashtable<String, MaintenanceStatus>();
-        statuses.put("P",new MaintenanceStatus("Pending"));
-        statuses.put("A",new MaintenanceStatus("Active"));
-        statuses.put("F",new MaintenanceStatus("Finished"));
-        statuses.put("E",new MaintenanceStatus("Expired"));
-        statuses.put("D",new MaintenanceStatus("Deleted"));
+        statuses.put("P", new MaintenanceStatus("Pending"));
+        statuses.put("A", new MaintenanceStatus("Active"));
+        statuses.put("F", new MaintenanceStatus("Finished"));
+        statuses.put("E", new MaintenanceStatus("Expired"));
+        statuses.put("D", new MaintenanceStatus("Deleted"));
 
 
         List<MaintenanceStatus> listOfStatuses = Arrays.asList(
@@ -86,7 +86,7 @@ public class InitializationServiceImpl  implements InitializationService{
                 statuses.get("D")
         );
 
-       maintenanceStatusRepository.save(listOfStatuses);
+        maintenanceStatusRepository.save(listOfStatuses);
 
 
         return statuses;
@@ -111,9 +111,9 @@ public class InitializationServiceImpl  implements InitializationService{
 
 
         Dictionary<String, MaintenanceType> types = new Hashtable<String, MaintenanceType>();
-        types.put("O",oilChange);
-        types.put("T",tireRotation);
-        types.put("B",batteryCharge);
+        types.put("O", oilChange);
+        types.put("T", tireRotation);
+        types.put("B", batteryCharge);
 
         return types;
     }
@@ -123,18 +123,18 @@ public class InitializationServiceImpl  implements InitializationService{
         gas.setValidMaintenanceTypes(Arrays.asList(maintenanceTypes.get("O"), maintenanceTypes.get("T")));
 
         VehicleType electric = new VehicleType("Electric");
-        electric.setValidMaintenanceTypes(Arrays.asList(maintenanceTypes.get("B"),maintenanceTypes.get("T")));
+        electric.setValidMaintenanceTypes(Arrays.asList(maintenanceTypes.get("B"), maintenanceTypes.get("T")));
 
         VehicleType hybrid = new VehicleType("Hybrid");
-        hybrid.setValidMaintenanceTypes(Arrays.asList(maintenanceTypes.get("B"),maintenanceTypes.get("T"),maintenanceTypes.get("O")));
+        hybrid.setValidMaintenanceTypes(Arrays.asList(maintenanceTypes.get("B"), maintenanceTypes.get("T"), maintenanceTypes.get("O")));
 
         gas = vehicleTypeRepository.save(gas);
         electric = vehicleTypeRepository.save(electric);
         hybrid = vehicleTypeRepository.save(hybrid);
         Dictionary<String, VehicleType> types = new Hashtable<String, VehicleType>();
-        types.put("G",gas);
-        types.put("E",electric);
-        types.put("H",hybrid);
+        types.put("G", gas);
+        types.put("E", electric);
+        types.put("H", hybrid);
 
         return types;
 

@@ -1,7 +1,6 @@
 package com.andyn.controller;
 
-import  com.andyn.model.Maintenance;
-import com.andyn.model.Vehicle;
+import com.andyn.model.Maintenance;
 import com.andyn.repository.MaintenanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,14 +19,13 @@ public class MaintenanceController {
 
     }
 
-    public  MaintenanceController(MaintenanceRepository maintenanceRepository) {
+    public MaintenanceController(MaintenanceRepository maintenanceRepository) {
         this.maintenanceRepository = maintenanceRepository;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     @ResponseBody
     public Iterable<Maintenance> listMaintenanceOptions() {
-        System.out.println("Listing!");
         return maintenanceRepository.findAll();
     }
 
@@ -37,7 +35,12 @@ public class MaintenanceController {
         return maintenanceRepository.findOne(id);
     }
 
-    @RequestMapping(value="/", method=RequestMethod.POST)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public void removeMaintenanceById(@PathVariable int id) {
+        maintenanceRepository.delete(id);
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     @ResponseBody
     public Maintenance createMaintenance(@RequestBody Maintenance maintenance) {
         return maintenanceRepository.save(maintenance);

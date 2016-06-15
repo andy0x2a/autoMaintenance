@@ -14,6 +14,7 @@ public class AutoMaintenanceServerInitializer {
     public Filter shallowEtagHeaderFilter() {
         return new ShallowEtagHeaderFilter();
     }
+
     public static void main(String[] args) {
         SpringApplication.run(AutoMaintenanceServerInitializer.class, args);
     }

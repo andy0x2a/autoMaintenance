@@ -20,12 +20,12 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="#/welcome">Home</a>
-                <a class="navbar-brand" href="#/vehicles">Vehicles</a>
-                <a class="navbar-brand" href="#/maintenance">Maintenance</a>
+            <a class="navbar-brand" href="#/vehicles">Vehicles</a>
+            <a class="navbar-brand" href="#/maintenance">Maintenance</a>
         </div>
     </div>
-    </nav>
-<div ng-view class="main" >
+</nav>
+<div ng-view class="main">
 
 
 </div>

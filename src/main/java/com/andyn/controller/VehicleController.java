@@ -16,10 +16,17 @@ public class VehicleController {
     @Autowired
     private VehicleService vehicleService;
 
+    public VehicleController() {
+
+    }
+
+    public VehicleController(VehicleService vehicleService) {
+        this.vehicleService = vehicleService;
+    }
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     @ResponseBody
-    public Iterable<Vehicle> listMaintenanceOptions() {
-        System.out.println("Listing!");
+    public Iterable<Vehicle> listVehicles() {
         return vehicleService.findAllVehicles();
     }
 
@@ -38,8 +45,13 @@ public class VehicleController {
 
     @RequestMapping(value = "/{vehicleId}", method = RequestMethod.PUT)
     @ResponseBody
-    public Vehicle updateVehicle(@RequestBody Vehicle vehicle,@PathVariable(value = "vehicleId") int vehicleId) {
+    public Vehicle updateVehicle(@RequestBody Vehicle vehicle, @PathVariable(value = "vehicleId") int vehicleId) {
         return vehicleService.saveVehicle(vehicle, vehicleId);
 
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public void removeVehicleById(@PathVariable int id) {
+        vehicleService.delete(id);
     }
 }

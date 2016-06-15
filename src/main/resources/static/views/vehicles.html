@@ -26,25 +26,33 @@
     </div>
 </div>
 
-<div id="editVehicleArea" ng-show="isEditingVehicle">
-    <div><label for="editId">Id:</label><input id="editId" name="editId" ng-enabled="false" ng-model="vehicleToEdit.id"/></div>
+<div class="row" id="editVehicleArea" ng-show="isEditingVehicle">
+    <div><label for="editId">Id:</label><span id="editId" name="editId" ng-enabled="false"
+                                               ng-model="vehicleToEdit.id"/></div>
     <div><label for="editVehicleType">Type:</label>
-    <select id="editVehicleType" ng-options="vehicleType as vehicleType.type for vehicleType in vehicleTypes track by vehicleType.id"
-            ng-model="vehicleToEdit.vehicleType"
-            ng-change="vehicleToEdit.validMaintenance = getValidMaintenanceForVehicle(vehicleToEdit.vehicleType);"></select></div>
+        <select id="editVehicleType"
+                ng-options="vehicleType as vehicleType.type for vehicleType in vehicleTypes track by vehicleType.id"
+                ng-model="vehicleToEdit.vehicleType"
+                ng-change="vehicleToEdit.validMaintenance = getValidMaintenanceForVehicle(vehicleToEdit.vehicleType);"></select>
+    </div>
     <div><label for="editMake">Make:</label><input id="editMake" name="editMake" ng-model="vehicleToEdit.make"/></div>
-<div><label for="editModel">Model:</><input id="editModel" name="editModel" ng-model="vehicleToEdit.model"/></div>
-<div><label for="editYear">Year:</label><input id="editYear" name="editYear" ng-model="vehicleToEdit.year"/></div>
-<div><label for="editDescr">Description:</label><input id="editDescr" name="editDescr" ng-model="vehicleToEdit.description"/></div>
-<div><label for="editodo">Odometer:</label><input id="editOdo" name="editOdo" ng-model="vehicleToEdit.odometer"/></div>
+    <div><label for="editModel">Model:</label><input id="editModel" name="editModel" ng-model="vehicleToEdit.model"/></div>
+    <div><label for="editYear">Year:</label><input id="editYear" name="editYear" ng-model="vehicleToEdit.year"/></div>
+    <div><label for="editDescr">Description:</label><input id="editDescr" name="editDescr"
+                                                           ng-model="vehicleToEdit.description"/></div>
+    <div><label for="editodo">Odometer:</label><input id="editOdo" name="editOdo" ng-model="vehicleToEdit.odometer"/>
+    </div>
     <div class="main">
         <span> Maintenance:</span>
+
         <div ng-repeat="maintenance in vehicleToEdit.maintenanceList track by $index">
             <label for="maintType">Type</label>
-            <select id="maintType" ng-options="maintenanceType as maintenanceType.name for maintenanceType in vehicleToEdit.validMaintenance track by maintenanceType.id"
+            <select id="maintType"
+                    ng-options="maintenanceType as maintenanceType.name for maintenanceType in vehicleToEdit.validMaintenance track by maintenanceType.id"
                     ng-model="maintenance.type"></select>
             <label for="maintStatus">Status:</label>
-            <select id="maintStatus" ng-options="maintenanceStatus as maintenanceStatus.status for maintenanceStatus in maintenanceStatuses track by maintenanceStatus.id"
+            <select id="maintStatus"
+                    ng-options="maintenanceStatus as maintenanceStatus.status for maintenanceStatus in maintenanceStatuses track by maintenanceStatus.id"
                     ng-model="maintenance.status"></select>
             <button ng-click="vehicleToEdit.maintenanceList.splice($index,1);">Remove</button>
         </div>
@@ -52,6 +60,6 @@
     </div>
 
 
-     <button ng-click="saveVehicle(vehicleToEdit)">Save</button>
+    <button ng-click="saveVehicle(vehicleToEdit)">Save</button>
     <button ng-click="isEditingVehicle=false;vehicleToEdit=undefined">Cancel</button>
 </div>

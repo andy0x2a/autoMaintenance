@@ -10,22 +10,23 @@ public class VehicleType {
 
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int ID;
 
     @Column()
     private String type;
 
 
-    @ManyToMany( cascade = { CascadeType.PERSIST,CascadeType.DETACH,CascadeType.REMOVE,CascadeType.REFRESH})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REMOVE, CascadeType.REFRESH})
     @JoinTable(
-            name="maintenance_allowed_types",
-            joinColumns=@JoinColumn(name="vtype_id", referencedColumnName="id"),
-            inverseJoinColumns=@JoinColumn(name="mtype_id", referencedColumnName="id"))
+            name = "maintenance_allowed_types",
+            joinColumns = @JoinColumn(name = "vtype_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "mtype_id", referencedColumnName = "id"))
     private List<MaintenanceType> validMaintenanceTypes;
 
     public VehicleType() {
     }
+
     public VehicleType(String type) {
         this.type = type;
     }
@@ -54,5 +55,7 @@ public class VehicleType {
     public void setValidMaintenanceTypes(List<MaintenanceType> validMaintenanceTypes) {
         this.validMaintenanceTypes = validMaintenanceTypes;
     }
+
+
 }
 

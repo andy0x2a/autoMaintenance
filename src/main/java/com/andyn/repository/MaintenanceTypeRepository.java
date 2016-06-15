@@ -1,6 +1,5 @@
 package com.andyn.repository;
 
-import com.andyn.model.Maintenance;
 import com.andyn.model.MaintenanceType;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

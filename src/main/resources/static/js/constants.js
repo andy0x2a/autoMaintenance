@@ -1,4 +1,3 @@
-
 angular.module('autoMaintenanceApp.constants', [])
     .service('constants', function () {
         return {

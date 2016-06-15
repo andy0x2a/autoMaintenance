@@ -3,7 +3,10 @@ package com.andyn.controller;
 
 import com.andyn.service.InitializationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/init")
@@ -11,21 +14,20 @@ import org.springframework.web.bind.annotation.*;
 public class InitializationController {
 
 
-  @Autowired
-  private InitializationServiceImpl initializationService;
+    @Autowired
+    private InitializationServiceImpl initializationService;
 
     public InitializationController() {
 
     }
 
-    public  InitializationController(InitializationServiceImpl initializationService) {
+    public InitializationController(InitializationServiceImpl initializationService) {
         this.initializationService = initializationService;
     }
 
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public void setup() {
-        System.out.println("initializing!");
         initializationService.setupData();
 
     }
